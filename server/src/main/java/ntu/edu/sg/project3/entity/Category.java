@@ -1,8 +1,5 @@
 package ntu.edu.sg.project3.entity;
 
-import java.util.List;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,10 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -28,9 +29,11 @@ public class Category {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Long id;
+
   @Column(name = "name")
   private String name;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "category")
-  private Set<Category> categories;
+  private List<Product> products;
 }
