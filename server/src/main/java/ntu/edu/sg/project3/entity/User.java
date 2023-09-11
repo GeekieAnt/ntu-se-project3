@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @Setter
 @Getter
@@ -24,9 +25,12 @@ public class User {
 
     private String lastName;
 
+    @Email
+    private String email;
+
     private String address;
 
     private Boolean role;
 
-    private String uid;
+    private String guid;
 }

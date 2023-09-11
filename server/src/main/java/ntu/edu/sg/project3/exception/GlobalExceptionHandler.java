@@ -3,6 +3,9 @@ package ntu.edu.sg.project3.exception;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +17,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+  private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
   // RESOURCE NOT FOUND EXCEPTION HANDLER
   @ExceptionHandler({ ProductNotFoundException.class, CategoryNotFoundException.class })
   public ResponseEntity<ErrorResponse> handleResourceNotFoundException(Exception ex) {
     ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), LocalDateTime.now());
+    logger.error(errorResponse.toString());
     return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
   }
 
@@ -25,6 +31,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(EmptyResultDataAccessException.class)
   public ResponseEntity<ErrorResponse> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex) {
     ErrorResponse errorResponse = new ErrorResponse("Item does not exist.", LocalDateTime.now());
+    logger.error(errorResponse.toString());
     return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
   }
 
@@ -44,6 +51,7 @@ public class GlobalExceptionHandler {
     }
 
     ErrorResponse errorResponse = new ErrorResponse(sb.toString(), LocalDateTime.now());
+    logger.error(errorResponse.toString());
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 
   }
@@ -54,6 +62,7 @@ public class GlobalExceptionHandler {
     // Add logging here
     // logger.error(ex.getMessage());
     // Return a generic error response so as not to leak sensitive information
+    logger.error(ex.getMessage());
     ErrorResponse errorResponse = new ErrorResponse("Something went wrong", LocalDateTime.now());
     return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
   }

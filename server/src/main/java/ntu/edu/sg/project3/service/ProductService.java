@@ -1,5 +1,6 @@
 package ntu.edu.sg.project3.service;
 
+import ntu.edu.sg.project3.entity.Category;
 import ntu.edu.sg.project3.entity.Product;
 
 import java.util.List;
@@ -7,9 +8,13 @@ import java.util.List;
 public interface ProductService {
     List<Product> getAll();
 
-    Product create(Product product, Long categoryId);
-
     Product getOne(Long id);
+
+    Product create(Product product, Long id);
+
+    Product save(Product product);
+
+    Product update(Long id, Product product);
 
     void delete(Long id);
 }

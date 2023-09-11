@@ -1,15 +1,15 @@
 package ntu.edu.sg.project3.controller;
 
 import lombok.AllArgsConstructor;
-import ntu.edu.sg.project3.entity.Category;
 import ntu.edu.sg.project3.entity.Product;
-import ntu.edu.sg.project3.service.CategoryService;
 import ntu.edu.sg.project3.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/product")
@@ -18,9 +18,14 @@ public class ProductController {
 
     private ProductService productService;
 
-    @PostMapping("/category/{categoryId}")
-    public ResponseEntity<Product> createProduct(@RequestBody Product product, @PathVariable Long categoryId) {
-        return new ResponseEntity<>(productService.create(product, categoryId), HttpStatus.CREATED);
+    @PostMapping("/category/{id}}")
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product, @PathVariable Long id) {
+        return new ResponseEntity<>(productService.create(product, id), HttpStatus.CREATED);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Product> saveProduct(@Valid @RequestBody Product product) {
+        return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
     @GetMapping("")
@@ -28,8 +33,20 @@ public class ProductController {
         return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{productId}")
-    public ResponseEntity<Product> getOneProduct(@PathVariable Long productId) {
-        return new ResponseEntity<>(productService.getOne(productId), HttpStatus.OK);
+    @GetMapping("{id}")
+    public ResponseEntity<Product> getOneProduct(@PathVariable Long id) {
+        return new ResponseEntity<>(productService.getOne(id), HttpStatus.OK);
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<HttpStatus> deleteProduct(@PathVariable Long id) {
+        productService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
+        return new ResponseEntity<>(productService.update(id, product), HttpStatus.OK);
+    }
+
 }
