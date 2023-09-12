@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,4 +38,9 @@ public class Category extends BaseEntity {
   @JsonIgnore
   @OneToMany(mappedBy = "category")
   private List<Product> products;
+
+  @Builder
+  public Category(String name) {
+    this.name = name;
+  }
 }
