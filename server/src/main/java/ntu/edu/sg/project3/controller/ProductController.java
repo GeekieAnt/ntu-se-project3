@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/product")
 @AllArgsConstructor
@@ -18,8 +19,8 @@ public class ProductController {
 
     private ProductService productService;
 
-    @PostMapping("/category/{id}}")
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product, @PathVariable Long id) {
+    @PostMapping("category/{id}")
+    public ResponseEntity<Product> createProduct(@RequestBody Product product, @PathVariable Long id) {
         return new ResponseEntity<>(productService.create(product, id), HttpStatus.CREATED);
     }
 

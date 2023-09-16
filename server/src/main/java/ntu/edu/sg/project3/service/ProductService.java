@@ -1,6 +1,5 @@
 package ntu.edu.sg.project3.service;
 
-import ntu.edu.sg.project3.entity.Category;
 import ntu.edu.sg.project3.entity.Product;
 
 import java.util.List;
