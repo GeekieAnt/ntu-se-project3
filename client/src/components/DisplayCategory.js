@@ -38,7 +38,11 @@ const DisplayCategory = ({ categories, refreshCategory }) => {
       .put(`category/${id}`, {
         name: category,
       })
-      .then(() => refreshCategory());
+      .then(() => {
+        handleClose();
+        refreshCategory();
+      })
+      .catch((error) => console.log(error));
   };
 
   return (

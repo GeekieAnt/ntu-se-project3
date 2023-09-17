@@ -23,8 +23,8 @@ const style = {
 };
 
 const UpdateProduct = ({ category, setCategory, handleClose, open, id }) => {
-  const [file, setFile] = React.useState(null);
-  const [fileValue, setFileValue] = React.useState("");
+  const [file, setFile] = useState("");
+  const [fileValue, setFileValue] = useState("");
   const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
@@ -63,6 +63,7 @@ const UpdateProduct = ({ category, setCategory, handleClose, open, id }) => {
   const handleUpdate = (event) => {
     event.preventDefault();
     const categoryId = getIdFromCategory(category);
+
     const uploadData = new FormData();
     uploadData.append("image", file);
 
@@ -82,7 +83,12 @@ const UpdateProduct = ({ category, setCategory, handleClose, open, id }) => {
             name: category,
           },
         })
-        .then((response) => console.log(response))
+        .then((response) => {
+          handleClose();
+          console.log(response);
+          setFileValue("");
+          setFile("");
+        })
         .catch((error) => console.log(error));
     });
   };
@@ -90,12 +96,12 @@ const UpdateProduct = ({ category, setCategory, handleClose, open, id }) => {
   const handleProductRefresh = () => {
     api.get(`product/${id}`).then(({ data }) => {
       setFormData(data);
-      console.log(formData);
     });
   };
 
   useEffect(() => {
     handleProductRefresh();
+    // console.log("file =>", file);
   }, [id]);
 
   useEffect(() => {
