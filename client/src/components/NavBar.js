@@ -1,7 +1,7 @@
-import { AppBar, Toolbar, Box, Typography } from "@mui/material";
-// import { VideogameAssetOutlined } from "@mui/icons-material";
-import React from "react";
+import { AppBar, Toolbar, Box, Typography, Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const navStyles = {
   color: "inherit",
@@ -9,6 +9,39 @@ const navStyles = {
 };
 
 const NavBar = () => {
+  const {
+    user,
+    isAuthenticated,
+    loginWithRedirect,
+    logout,
+    getAccessTokenSilently,
+  } = useAuth0();
+
+  const [token, setToken] = useState("");
+
+  const logoutWithRedirect = () =>
+    logout({
+      logoutParams: {
+        returnTo: window.location.origin,
+      },
+    });
+
+  useEffect(() => {
+    const getUserMetadata = async () => {
+      try {
+        const accessToken = await getAccessTokenSilently();
+        setToken(accessToken);
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+
+    getUserMetadata();
+  }, [getAccessTokenSilently, user?.sub]);
+
+  console.log("token => ", token);
+  console.log("user => ", user);
+
   return (
     <AppBar>
       <Toolbar
@@ -24,10 +57,30 @@ const NavBar = () => {
             X STORE
           </Typography>
         </Box>
-        <Box>
-          <Typography component={NavLink} to="/dashboard" sx={navStyles}>
-            DASHBOARD
-          </Typography>
+        <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
+          {!isAuthenticated && (
+            <Button
+              sx={{ mr: 2 }}
+              color="inherit"
+              onClick={() => loginWithRedirect()}
+            >
+              <Typography>LOGIN</Typography>
+            </Button>
+          )}
+          {isAuthenticated && (
+            <Button
+              sx={{ mr: 2 }}
+              color="inherit"
+              onClick={() => logoutWithRedirect()}
+            >
+              <Typography>LOGOUT</Typography>
+            </Button>
+          )}
+          {isAuthenticated && (
+            <Typography component={NavLink} to="/dashboard" sx={navStyles}>
+              {user?.name}
+            </Typography>
+          )}
         </Box>
       </Toolbar>
     </AppBar>
