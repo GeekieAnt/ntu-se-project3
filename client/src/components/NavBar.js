@@ -1,4 +1,14 @@
-import { AppBar, Toolbar, Box, Typography, Button } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Box,
+  Typography,
+  Button,
+  Avatar,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -9,6 +19,8 @@ const navStyles = {
 };
 
 const NavBar = () => {
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [token, setToken] = useState("");
   const {
     user,
     isAuthenticated,
@@ -17,7 +29,13 @@ const NavBar = () => {
     getAccessTokenSilently,
   } = useAuth0();
 
-  const [token, setToken] = useState("");
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   const logoutWithRedirect = () =>
     logout({
@@ -68,19 +86,40 @@ const NavBar = () => {
             </Button>
           )}
           {isAuthenticated && (
-            <Button
-              sx={{ mr: 2 }}
-              color="inherit"
-              onClick={() => logoutWithRedirect()}
-            >
-              <Typography>LOGOUT</Typography>
-            </Button>
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt="Profile" src={user?.picture} />
+            </IconButton>
           )}
-          {isAuthenticated && (
-            <Typography component={NavLink} to="/dashboard" sx={navStyles}>
-              {user?.name}
-            </Typography>
-          )}
+          <Menu
+            sx={{ mt: "45px" }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            <MenuItem>
+              <Typography
+                textAlign="center"
+                component={NavLink}
+                to="/dashboard"
+                sx={navStyles}
+              >
+                Dashboard
+              </Typography>
+            </MenuItem>
+            <MenuItem onClick={() => logoutWithRedirect()}>
+              <Typography textAlign="center">Logout</Typography>
+            </MenuItem>
+          </Menu>
         </Box>
       </Toolbar>
     </AppBar>

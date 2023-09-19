@@ -15,7 +15,6 @@ root.render(
     authorizationParams={{
       redirect_uri: window.location.origin,
       audience: "https://se-project-api/",
-      scope: "read:current_user update:current_user_metadata",
     }}
   >
     <React.StrictMode>
