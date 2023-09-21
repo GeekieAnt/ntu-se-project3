@@ -5,6 +5,7 @@ import ntu.edu.sg.project3.entity.Product;
 import ntu.edu.sg.project3.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("category/{id}")
-    public ResponseEntity<Product> createProduct(@RequestBody Product product, @PathVariable Long id) {
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product, @PathVariable Long id) {
         return new ResponseEntity<>(productService.create(product, id), HttpStatus.CREATED);
     }
 
