@@ -16,11 +16,11 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: '17'
+          distribution: "temurin" # See 'Supported distributions' for available options
+          java-version: "17"
 
       - name: Build the Spring Boot JAR
-        run: ./mvnw clean package
+        run: ./server/mvnw clean package
 
       - name: Build Docker image
         run: docker build -t your-image-name:latest .
