@@ -24,11 +24,11 @@ jobs:
         working-directory: ./server
 
       - name: Build Docker image
-        run: docker build -t your-image-name:latest .
+        run: docker build -t mafiageek/project3:latest .
         working-directory: ./server
 
-      # - name: Login to Docker Hub
-      #   run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-      # - name: Push Docker image
-      #   run: docker push your-image-name:latest
+      - name: Push Docker image
+        run: docker push mafiageek/project3:latest
