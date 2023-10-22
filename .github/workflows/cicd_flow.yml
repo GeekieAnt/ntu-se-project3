@@ -1,4 +1,4 @@
-name: ci_flow
+name: cicd_flow
 on:
   push:
     branches:
