@@ -16,12 +16,16 @@ jobs:
       - name: Build the Spring Boot JAR
         run: ./mvnw clean package
         working-directory: server
+      - name: test
+        run: pwd
   security:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - name: Change to a different directory
-        run: cd /server
+        run: cd server
+      - name: check dir
+        run: pwd
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/maven-3-jdk-17@master
         env:
