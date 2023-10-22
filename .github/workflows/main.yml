@@ -18,17 +18,3 @@ jobs:
         with:
           distribution: "temurin" # See 'Supported distributions' for available options
           java-version: "17"
-
-      # - name: Build the Spring Boot JAR
-      #   run: ./mvnw clean package
-      #   working-directory: ./server
-
-      # - name: Build Docker image
-      #   run: docker build -t your-image-name:latest .
-      #   working-directory: ./server
-
-      # - name: Login to Docker Hub
-      #   run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-
-      # - name: Push Docker image
-      #   run: docker push your-image-name:latest
