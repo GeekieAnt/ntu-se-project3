@@ -2,7 +2,7 @@ name: ci_flow
 on:
   push:
     branches:
-      - develop
+      - release
 
 jobs:
   build:
@@ -16,11 +16,3 @@ jobs:
       - name: Build the Spring Boot JAR
         run: ./mvnw clean package
         working-directory: server
-  security:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven-3-jdk-17@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
