@@ -61,7 +61,7 @@ public class CategoryServiceImplTest {
     Category retrievedCategory = categoryService.getOne(categoryId);
 
     // 3. ASSERT
-    assertEquals(category, null, "break a test");
+    assertEquals(category, retrievedCategory, "The retrieved category should be the same as the input category");
   }
 
   @Test
