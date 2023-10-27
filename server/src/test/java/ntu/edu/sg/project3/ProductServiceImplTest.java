@@ -55,7 +55,7 @@ public class ProductServiceImplTest {
     Product retrievedProduct = productService.getOne(productId);
 
     // Assert
-    assertEquals(product, null, "The retrieved product should be the same as the input product");
+    assertEquals(product, retrievedProduct, "The retrieved product should be the same as the input product");
 
   }
 }
