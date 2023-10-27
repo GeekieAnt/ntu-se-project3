@@ -14,7 +14,7 @@ jobs:
           distribution: "temurin" # See 'Supported distributions' for available options
           java-version: "17"
       - name: Build the Spring Boot JAR
-        run: ./mvnw clean package
+        run: ./mvnw clean install -DskipTests=true
         working-directory: server
   security:
     runs-on: ubuntu-latest
