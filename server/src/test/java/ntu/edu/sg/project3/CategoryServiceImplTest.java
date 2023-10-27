@@ -53,7 +53,7 @@ public class CategoryServiceImplTest {
     // 1. SETUP
     Category category = Category.builder().name("Bash").build();
 
-    Long categoryId = 1L;
+    Long categoryId = 10L;
 
     when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(category));
 
