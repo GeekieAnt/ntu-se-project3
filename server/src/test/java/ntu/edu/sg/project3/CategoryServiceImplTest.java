@@ -53,7 +53,7 @@ public class CategoryServiceImplTest {
     // 1. SETUP
     Category category = Category.builder().name("Bash").build();
 
-    Long categoryId = 10L;
+    Long categoryId = 1L;
 
     when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(category));
 
@@ -61,7 +61,7 @@ public class CategoryServiceImplTest {
     Category retrievedCategory = categoryService.getOne(categoryId);
 
     // 3. ASSERT
-    assertEquals(category, retrievedCategory, "The retrieved category should be the same as the input category");
+    assertEquals(category, null, "break a test");
   }
 
   @Test
