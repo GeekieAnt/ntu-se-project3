@@ -48,6 +48,7 @@ const AddProduct = () => {
 
   const handleFileUpload = async () => {
     const uploadData = new FormData();
+    console.log("file =>", file);
     uploadData.append("image", file);
     let response = await api.post(`upload`, uploadData);
     let urlString = response.data;
