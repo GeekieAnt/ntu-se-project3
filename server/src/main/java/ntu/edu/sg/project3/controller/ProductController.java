@@ -25,6 +25,12 @@ public class ProductController {
         return new ResponseEntity<>(productService.create(product, id), HttpStatus.CREATED);
     }
 
+    @GetMapping("category/{id}")
+    public ResponseEntity<List<Product>> getProductsByCategory(@PathVariable Long id) {
+
+        return new ResponseEntity<>(productService.getProductsByCategory(id), HttpStatus.OK);
+    }
+
     @PostMapping("")
     public ResponseEntity<Product> saveProduct(@Valid @RequestBody Product product) {
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
